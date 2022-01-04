@@ -80,6 +80,16 @@ resources:
     rawJsonToFirehose:
       Properties:
         QueueName: raw-json-to-firehose
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - "rawJsonToFirehoseDlq"
+              - "Arn"
+          maxReceiveCount: 5
+      Type: AWS::SQS::Queue
+    rawJsonToFirehoseDlq:
+      Properties:
+        QueueName: raw-json-to-firehose-dlq
       Type: AWS::SQS::Queue
     smallFiles:
       Properties:
@@ -88,6 +98,16 @@ resources:
     smallFilesCsv:
       Properties:
         QueueName: small-files-csv
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - "smallFilesCsvDlq"
+              - "Arn"
+          maxReceiveCount: 5
+      Type: AWS::SQS::Queue
+    smallFilesCsvDlq:
+      Properties:
+        QueueName: small-files-csv-dlq
       Type: AWS::SQS::Queue
 
 service: fiap-exploring-database-options
