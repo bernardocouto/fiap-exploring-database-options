@@ -13,6 +13,7 @@ functions:
       - s3:
         bucket: raw-json
         event: s3:ObjectCreated:*
+        existing: true
         rules:
           - suffix: .json
     handler: read-from-raw-to-sqs/lambda_function.lambda_handler
@@ -23,6 +24,7 @@ functions:
       - s3:
         bucket: small-files
         event: s3:ObjectCreated:*
+        existing: true
         rules:
           - suffix: .csv
     handler: read-from-small-to-sqs/lambda_function.lambda_handler
@@ -63,5 +65,16 @@ provider:
   timeout: 30
   tracing:
     lambda: true
+
+resources:
+  Resources:
+    raw-json:
+      Properties:
+        BucketName: raw-json
+      Type: AWS::S3::Bucket
+    small-files:
+      Properties:
+        BucketName: small-files
+      Type: AWS::S3::Bucket
 
 service: fiap-exploring-database-options
