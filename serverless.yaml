@@ -108,6 +108,8 @@ resources:
           BufferingHints:
             IntervalInSeconds: 300
             SizeInMBs: 5
+          RoleARN:
+            Fn::GetAtt: [fiap-exploring-database-options-dev-us-east-2-lambdaRole, Arn]
       Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
