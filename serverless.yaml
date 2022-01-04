@@ -21,6 +21,7 @@ package:
   - .github/**
   - README.md
   excludeDevDependencies: false
+  individually: true
 
 plugins:
   - serverless-plugin-create-deployment-bucket
