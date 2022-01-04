@@ -1,5 +1,3 @@
-from common.sqs import SQS
-
 import awswrangler as wr
 import datetime
 import json
@@ -13,10 +11,6 @@ def lambda_handler(event, context):
     logger.info('Start of running AWS Lambda')
 
     bucket = os.environ.get('AWS_S3_RAW_JSON', 'fiap-exploring-database-options-raw-json')
-
-    sqs = SQS()
-    queue_name = os.environ.get('AWS_SQS_RAW_JSON_TO_FIREHOSE', 'raw-json-to-firehose')
-    queue_url = sqs.get_queue_url(queue_name=queue_name)
 
     columns_names = [
         'id',
@@ -37,11 +31,9 @@ def lambda_handler(event, context):
             key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
             wr.s3.to_json(
                 df=df,
+                index=False,
+                lines=True,
                 path=f's3://{bucket}/{key}'
-            )
-            sqs.delete_message(
-                queue_url=queue_url,
-                receipt_handle=receipt_handle
             )
 
     logger.info('End of AWS Lambda run')
