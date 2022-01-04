@@ -53,6 +53,8 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
+        - "firehose:*"
+        - "kinesis:*"
         - "s3:*"
         - "sqs:*"
       Resource: "*"
@@ -69,6 +71,14 @@ provider:
 
 resources:
   Resources:
+    firehoseIngestJsonStream:
+      Properties:
+        Name: firehose-ingest-json
+      Type: AWS::Kinesis::Stream
+    firehoseIngestJsonDeliveryStream:
+      Properties:
+        Name: firehose-ingest-json
+      Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
         BucketName: fiap-exploring-database-options-ingested-json
