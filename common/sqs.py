@@ -15,9 +15,9 @@ class SQS:
                 ReceiptHandle=receipt_handle
             )
         except self.client.exceptions.InvalidIdFormat as exception:
-            logger.info(f'Invalid id format: {exception}')
+            logger.error(f'Invalid id format: {exception}')
         except self.client.exceptions.ReceiptHandleIsInvalid as exception:
-            logger.info(f'Receipt handle is invalid: {exception}')
+            logger.error(f'Receipt handle is invalid: {exception}')
 
     def get_queue_url(self, queue_name):
         try:

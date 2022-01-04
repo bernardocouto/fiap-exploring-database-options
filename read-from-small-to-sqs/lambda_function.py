@@ -1,14 +1,17 @@
 from common.sqs import SQS
 
 import json
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 def lambda_handler(event, context):
 
-    queue_name = os.environ.get('AWS_SQS_SMALL_FILES_CSV', 'small-files-csv')
+    logger.info('Start of running AWS Lambda')
 
     sqs = SQS()
-
+    queue_name = os.environ.get('AWS_SQS_SMALL_FILES_CSV', 'small-files-csv')
     queue_url = sqs.get_queue_url(queue_name=queue_name)
 
     if 'Records' in event:
@@ -19,4 +22,7 @@ def lambda_handler(event, context):
                 'bucket': bucket,
                 'key': key
             })
+            logger.info('Sending the message to AWS SQS')
             sqs.send_message(message_body=message_body, queue_url=queue_url)
+
+    logger.info('End of AWS Lambda run')
