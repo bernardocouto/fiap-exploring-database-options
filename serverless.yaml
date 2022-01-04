@@ -1,0 +1,48 @@
+app: fiap-exploring-database-options
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
+    useDownloadCache: false
+
+functions:
+  read-from-raw-to-sqs:
+    handler: read-from-raw-to-sqs/lambda_function.lambda_handler
+    memorySize: 128
+    name: read-from-raw-to-sqs
+  read-from-small-to-sqs:
+    handler: read-from-small-to-sqs/lambda_function.lambda_handler
+    memorySize: 128
+    name: read-from-small-to-sqs
+
+package:
+  exclude:
+  - .github/**
+  - README.md
+  excludeDevDependencies: false
+
+plugins:
+  - serverless-plugin-create-deployment-bucket
+  - serverless-python-requirements
+
+provider:
+  deploymentBucket:
+    blockPublicAccess: true
+    name: fiap-exploring-database-options-serverless
+    serverSideEncryption: AES256
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+        - "sqs:*"
+      Resource: "*"
+  lambdaHashingVersion: 20201221
+  name: aws
+  region: us-east-2
+  runtime: python3.8
+  timeout: 30
+  tracing:
+    lambda: true
+
+service: fiap-exploring-database-options

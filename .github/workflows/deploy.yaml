@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+      - name: Install Plugins
+        run: |
+          npm install serverless-offline
+          npm install serverless-plugin-create-deployment-bucket
+          npm install serverless-plugin-existing-s3
+          npm install serverless-python-requirements
+      - name: Serverless AWS Authentication
+        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Deploy Lambda Functions
+        run: serverless deploy
