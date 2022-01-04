@@ -68,11 +68,11 @@ provider:
 
 resources:
   Resources:
-    raw-json:
+    rawJson:
       Properties:
         BucketName: raw-json
       Type: AWS::S3::Bucket
-    small-files:
+    smallFiles:
       Properties:
         BucketName: small-files
       Type: AWS::S3::Bucket
