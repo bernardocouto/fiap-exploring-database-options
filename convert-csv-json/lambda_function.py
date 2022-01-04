@@ -30,7 +30,7 @@ def lambda_handler(event, context):
             key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
             wr.s3.to_json(
                 df=df,
-                lines=True,
+                date_format='epoch',
                 orient='records',
                 path=f's3://{bucket}/{key}'
             )
