@@ -8,6 +8,17 @@ class SQS:
     def __init__(self):
         self.client = boto3.client('sqs')
 
+    def delete_message(self, queue_url, receipt_handle):
+        try:
+            self.client.delete_message(
+                QueueUrl=queue_url,
+                ReceiptHandle=receipt_handle
+            )
+        except self.client.exceptions.InvalidIdFormat as exception:
+            logger.info(f'Invalid id format: {exception}')
+        except self.client.exceptions.ReceiptHandleIsInvalid as exception:
+            logger.info(f'Receipt handle is invalid: {exception}')
+
     def get_queue_url(self, queue_name):
         try:
             queue_url = self.client.get_queue_url(
