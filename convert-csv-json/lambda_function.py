@@ -33,12 +33,11 @@ def lambda_handler(event, context):
                 sep=';'
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
-            wr.s3.to_json(
-                dataset=True,
+            result = wr.s3.to_json(
                 df=df,
-                index=False,
                 path=f's3://{bucket}'
             )
+            print(result)
             sqs.delete_message(
                 queue_url=queue_url,
                 receipt_handle=receipt_handle
