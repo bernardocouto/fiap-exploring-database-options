@@ -77,7 +77,7 @@ resources:
       Type: AWS::Kinesis::Stream
     firehoseIngestJsonDeliveryStream:
       Properties:
-        Name: firehose-ingest-json
+        DeliveryStreamName: firehose-ingest-json
       Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
