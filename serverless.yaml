@@ -104,53 +104,23 @@ provider:
 
 resources:
   Resources:
-    firehoseIngestJsonStream:
+    firehoseIngestJson:
       Properties:
-        Name: firehose-ingest-json
-        StreamModeDetails:
-          StreamMode: ON_DEMAND
-      Type: AWS::Kinesis::Stream
-    # firehoseIngestJsonDeliveryStream:
-    #   Properties:
-    #     DeliveryStreamName: firehose-ingest-json
-    #     S3DestinationConfiguration:
-    #       BucketARN:
-    #         Fn::GetAtt:
-    #           - ingestedJson
-    #           - Arn
-    #       BufferingHints:
-    #         IntervalInSeconds: 300
-    #         SizeInMBs: 5
-    #       RoleARN:
-    #         Fn::Sub: arn:aws:iam::992368295236:role/fiap-exploring-database-options-dev-us-east-2-lambdaRole
-    #   Type: AWS::KinesisFirehose::DeliveryStream
+        DeliveryStreamName: firehose-ingest-json
+        DeliveryStreamType: DirectPut
+        S3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt:
+              - ingestedJson
+              - Arn
+          BufferingHints:
+            IntervalInSeconds: 300
+            SizeInMBs: 100
+      Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
         BucketName: fiap-exploring-database-options-ingested-json
       Type: AWS::S3::Bucket
-    kinesisFirehoseRole:
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - firehose.amazonaws.com
-              Action: sts:AssumeRole
-        RoleName: kinesis-firehose-role
-        Policies:
-          - PolicyName: root
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Effect: Allow
-                  Action: s3:*
-                  Resource:
-                    Fn::GetAtt:
-                      - ingestedJson
-                      - Arn
-      Type: AWS::IAM::Role
     rawJson:
       Properties:
         BucketName: fiap-exploring-database-options-raw-json
