@@ -8,6 +8,7 @@ def lambda_handler(event, context):
 
     if 'Records' in event:
         for record in event['Records']:
+            body = json.loads(record['body'])
             df = wr.s3.read_csv(
                 f's3://{body["bucket"]}/{body["key"]}',
                 dataset=True
