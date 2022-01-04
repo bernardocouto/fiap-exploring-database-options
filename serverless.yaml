@@ -94,7 +94,8 @@ resources:
     firehoseIngestJsonStream:
       Properties:
         Name: firehose-ingest-json
-        StreamMode: ON_DEMAND
+        StreamModeDetails:
+          StreamMode: ON_DEMAND
       Type: AWS::Kinesis::Stream
     firehoseIngestJsonDeliveryStream:
       Properties:
