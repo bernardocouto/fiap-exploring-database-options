@@ -69,13 +69,25 @@ provider:
 
 resources:
   Resources:
+    ingestedJson:
+      Properties:
+        BucketName: fiap-exploring-database-options-ingested-json
+      Type: AWS::S3::Bucket
     rawJson:
       Properties:
         BucketName: fiap-exploring-database-options-raw-json
       Type: AWS::S3::Bucket
+    rawJsonToFirehose:
+      Properties:
+        QueueName: raw-json-to-firehose
+      Type: AWS::SQS::Queue
     smallFiles:
       Properties:
         BucketName: fiap-exploring-database-options-small-files
       Type: AWS::S3::Bucket
+    smallFilesCsv:
+      Properties:
+        QueueName: small-files-csv
+      Type: AWS::SQS::Queue
 
 service: fiap-exploring-database-options
