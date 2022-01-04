@@ -8,11 +8,11 @@ class Firehose:
     def __init__(self):
         self.client = boto3.client('firehose')
 
-    def put_record(self, record):
+    def put_record(self, delivery_stream_name, record):
         try:
             self.client.put_record(
-                DeliveryStreamName='',
-                Record={'Data': record}
+                DeliveryStreamName=delivery_stream_name,
+                Record={'Data': bytes(record)}
             )
         except self.client.exceptions.InvalidArgumentException as exception:
             logger.error(f'Invalid argument: {exception}')

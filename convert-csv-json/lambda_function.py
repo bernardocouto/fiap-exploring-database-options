@@ -20,7 +20,6 @@ def lambda_handler(event, context):
     if 'Records' in event:
         for record in event['Records']:
             body = json.loads(record['body'])
-            receipt_handle = record['receiptHandle']
             logger.info(f'Reading the CSV on AWS S3: s3://{body["bucket"]}/{body["key"]}')
             df = wr.s3.read_csv(
                 names=columns_names,

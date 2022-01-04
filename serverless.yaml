@@ -132,7 +132,7 @@ resources:
                 - '*'
           Roles:
             - !Ref firehoseIngestJsonRole
-          Version: 2012-10-17
+          Version: '2012-10-17'
         PolicyName: firehose-ingest-json
       Type: AWS::IAM::Policy
     firehoseIngestJsonRole:
@@ -144,7 +144,7 @@ resources:
               Effect: Allow
               Principal:
                 Service: firehose.amazonaws.com
-          Version: 2012-10-17
+          Version: '2012-10-17'
       Type: AWS::IAM::Role
     ingestedJson:
       Properties:
