@@ -109,7 +109,7 @@ resources:
             IntervalInSeconds: 300
             SizeInMBs: 5
           RoleARN:
-            Fn::GetAtt: [fiap-exploring-database-options-dev-us-east-2-lambdaRole, Arn]
+            Fn::Sub: arn:aws:iam::992368295236:role/fiap-exploring-database-options-dev-us-east-2-lambdaRole
       Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
