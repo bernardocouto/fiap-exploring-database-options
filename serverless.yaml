@@ -1,6 +1,8 @@
 app: fiap-exploring-database-options
 
 custom:
+  pyIndividually:
+    dockerizedPip: true
   pythonRequirements:
     dockerizePip: true
     slim: true
@@ -16,6 +18,8 @@ functions:
               - smallFilesCsv
               - Arn
     handler: convert-csv-json/lambda_function.lambda_handler
+    layers:
+
     memorySize: 128
     name: convert-csv-json
     package:
