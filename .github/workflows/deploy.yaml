@@ -31,4 +31,4 @@ jobs:
       - name: Serverless AWS Authentication
         run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Deploy Lambda Functions
-        run: serverless deploy --pi-cleanup
+        run: serverless deploy
