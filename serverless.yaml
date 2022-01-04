@@ -130,10 +130,10 @@ resources:
                 - s3:*
               Resource:
                 - '*'
-          Roles:
-            - !Ref firehoseIngestJsonRole
           Version: '2012-10-17'
         PolicyName: firehose-ingest-json
+        Roles:
+            - !Ref firehoseIngestJsonRole
       Type: AWS::IAM::Policy
     firehoseIngestJsonRole:
       Properties:
