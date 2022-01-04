@@ -129,7 +129,7 @@ resources:
               Action:
                 - s3:*
               Resource:
-                - *
+                - '*'
           Roles:
             - !Ref firehoseIngestJsonRole
           Version: 2012-10-17
