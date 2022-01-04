@@ -3,6 +3,7 @@ app: fiap-exploring-database-options
 custom:
   pythonRequirements:
     dockerizePip: true
+    layer: true
     slim: true
     useDownloadCache: false
     zip: true
