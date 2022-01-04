@@ -8,10 +8,22 @@ custom:
 
 functions:
   read-from-raw-to-sqs:
+    events:
+      - s3:
+        bucket: raw-json
+        event: s3:ObjectCreated:*
+        rules:
+          - suffix: .json
     handler: read-from-raw-to-sqs/lambda_function.lambda_handler
     memorySize: 128
     name: read-from-raw-to-sqs
   read-from-small-to-sqs:
+    events:
+      - s3:
+        bucket: small-files
+        event: s3:ObjectCreated:*
+        rules:
+          - suffix: .csv
     handler: read-from-small-to-sqs/lambda_function.lambda_handler
     memorySize: 128
     name: read-from-small-to-sqs
@@ -19,6 +31,7 @@ functions:
 package:
   exclude:
   - .github/**
+  - venv/**
   - README.md
   excludeDevDependencies: false
   individually: true
@@ -42,6 +55,9 @@ provider:
   name: aws
   region: us-east-2
   runtime: python3.8
+  s3:
+    small-files:
+      name: small-files
   timeout: 30
   tracing:
     lambda: true
