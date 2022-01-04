@@ -22,8 +22,11 @@ def lambda_handler(event, context):
             body = json.loads(record['body'])
             receipt_handle = record['receiptHandle']
             logger.info(f'Reading the CSV on AWS S3: s3://{body["bucket"]}/{body["key"]}')
+            print(f's3://{body["bucket"]}/{body["key"]}')
             df = wr.s3.read_csv(
-                path=[f's3://{body["bucket"]}/{body["key"]}']
+                path=[f's3://{body["bucket"]}/{body["key"]}'],
+                sep=',',
+                skip_blank_lines=True
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
             wr.s3.to_json(
