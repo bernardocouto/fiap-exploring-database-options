@@ -115,6 +115,29 @@ resources:
       Properties:
         BucketName: fiap-exploring-database-options-ingested-json
       Type: AWS::S3::Bucket
+    kinesisFirehoseRole:
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - firehose.amazonaws.com
+              Action: sts:AssumeRole
+        RoleName: kinesis-firehose-role
+        Policies:
+          - PolicyName: root
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action: s3:*
+                  Resource:
+                    Fn::GetAtt:
+                      - ingestedJson
+                      - Arn
+      Type: AWS::IAM::Role
     rawJson:
       Properties:
         BucketName: fiap-exploring-database-options-raw-json
