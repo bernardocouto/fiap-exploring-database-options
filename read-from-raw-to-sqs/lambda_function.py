@@ -20,4 +20,3 @@ def lambda_handler(event, context):
                 'key': key
             })
             sqs.send_message(message_body=message_body, queue_url=queue_url)
-
