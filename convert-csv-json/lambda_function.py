@@ -27,7 +27,7 @@ def lambda_handler(event, context):
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
             for df in dfs:
-                print(df.show())
+                print(df)
                 wr.s3.to_json(
                     df=df,
                     path=f's3://{bucket}'
