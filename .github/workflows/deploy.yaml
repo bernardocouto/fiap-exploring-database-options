@@ -26,6 +26,7 @@ jobs:
         run: |
           npm install serverless-plugin-create-deployment-bucket
           npm install serverless-plugin-existing-s3
+          npm install serverless-plugin-optimize
           npm install serverless-python-individually
           npm install serverless-python-requirements
       - name: Serverless AWS Authentication

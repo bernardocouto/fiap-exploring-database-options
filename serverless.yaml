@@ -81,6 +81,7 @@ package:
 plugins:
   - serverless-plugin-create-deployment-bucket
   - serverless-plugin-existing-s3
+  - serverless-plugin-optimize
   - serverless-python-individually
   - serverless-python-requirements
 
