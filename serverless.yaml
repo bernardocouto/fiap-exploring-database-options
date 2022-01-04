@@ -42,6 +42,7 @@ package:
 
 plugins:
   - serverless-plugin-create-deployment-bucket
+  - serverless-plugin-existing-s3
   - serverless-python-requirements
 
 provider:
