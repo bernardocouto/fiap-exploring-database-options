@@ -69,12 +69,12 @@ functions:
 
 package:
   exclude:
-  - .editorconfig
-  - .github/**
-  - node_modules/**
-  - sample/**
-  - venv/**
-  - README.md
+    - .editorconfig
+    - .github/**
+    - node_modules/**
+    - sample/**
+    - venv/**
+    - README.md
   excludeDevDependencies: false
   individually: true
 
