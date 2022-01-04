@@ -19,6 +19,11 @@ def lambda_handler(event, context):
                 f's3://{body["bucket"]/{body["key"]}}',
                 dataset=True
             )
+            print('**********')
+            print('**********')
+            print(df.head())
+            print('**********')
+            print('**********')
             wr.s3.to_json(
                 database='raw',
                 dataset=True,
