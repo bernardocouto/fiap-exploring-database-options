@@ -23,16 +23,15 @@ def lambda_handler(event, context):
             receipt_handle = record['receiptHandle']
             logger.info(f'Reading the CSV on AWS S3: s3://{body["bucket"]}/{body["key"]}')
             print(f's3://{body["bucket"]}/{body["key"]}')
-            df = wr.s3.read_csv(
-                path=[f's3://{body["bucket"]}/{body["key"]}'],
-                sep=',',
-                skip_blank_lines=True
+            dfs = wr.s3.read_csv(
+                path=[f's3://{body["bucket"]}/{body["key"]}']
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
-            wr.s3.to_json(
-                df=df,
-                path=f's3://{bucket}'
-            )
+            for df in dfs:
+                wr.s3.to_json(
+                    df=df,
+                    path=f's3://{bucket}'
+                )
             sqs.delete_message(
                 queue_url=queue_url,
                 receipt_handle=receipt_handle
