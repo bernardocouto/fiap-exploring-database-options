@@ -78,6 +78,14 @@ resources:
     firehoseIngestJsonDeliveryStream:
       Properties:
         DeliveryStreamName: firehose-ingest-json
+        S3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt:
+              - "ingestedJson"
+              - "Arn"
+          BufferingHints:
+            IntervalInSeconds: 300
+            SizeInMBs: 5
       Type: AWS::KinesisFirehose::DeliveryStream
     ingestedJson:
       Properties:
