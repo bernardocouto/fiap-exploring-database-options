@@ -70,11 +70,11 @@ resources:
   Resources:
     rawJson:
       Properties:
-        BucketName: raw-json
+        BucketName: fiap-exploring-database-options-raw-json
       Type: AWS::S3::Bucket
     smallFiles:
       Properties:
-        BucketName: small-files
+        BucketName: fiap-exploring-database-options-small-files
       Type: AWS::S3::Bucket
 
 service: fiap-exploring-database-options
