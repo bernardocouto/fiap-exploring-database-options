@@ -8,6 +8,11 @@ def lambda_handler(event, context):
 
     if 'Records' in event:
         for record in event['Records']:
+            print('**********')
+            print('**********')
+            print(record)
+            print('**********')
+            print('**********')
             body = json.loads(record['body'])
             print('**********')
             print('**********')
