@@ -8,6 +8,16 @@ custom:
     zip: true
 
 functions:
+  convert-csv-json:
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - smallFilesCsv
+              - Arn
+    handler: convert-csv-json/lambda_function.lambda_handler
+    memorySize: 128
+    name: convert-csv-json
   read-from-raw-to-sqs:
     events:
       - s3:
@@ -30,6 +40,16 @@ functions:
     handler: read-from-small-to-sqs/lambda_function.lambda_handler
     memorySize: 128
     name: read-from-small-to-sqs
+  send-raw-json-to-firehose:
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - rawJsonToFirehose
+              - Arn
+    handler: send-raw-json-to-firehose/lambda_function.lambda_handler
+    memorySize: 128
+    name: send-raw-json-to-firehose
 
 package:
   exclude:
@@ -81,8 +101,8 @@ resources:
         S3DestinationConfiguration:
           BucketARN:
             Fn::GetAtt:
-              - "ingestedJson"
-              - "Arn"
+              - ingestedJson
+              - Arn
           BufferingHints:
             IntervalInSeconds: 300
             SizeInMBs: 5
@@ -101,8 +121,8 @@ resources:
         RedrivePolicy:
           deadLetterTargetArn:
             Fn::GetAtt:
-              - "rawJsonToFirehoseDlq"
-              - "Arn"
+              - rawJsonToFirehoseDlq
+              - Arn
           maxReceiveCount: 5
       Type: AWS::SQS::Queue
     rawJsonToFirehoseDlq:
@@ -119,8 +139,8 @@ resources:
         RedrivePolicy:
           deadLetterTargetArn:
             Fn::GetAtt:
-              - "smallFilesCsvDlq"
-              - "Arn"
+              - smallFilesCsvDlq
+              - Arn
           maxReceiveCount: 5
       Type: AWS::SQS::Queue
     smallFilesCsvDlq:
