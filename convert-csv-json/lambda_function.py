@@ -1,6 +1,7 @@
 from common.sqs import SQS
 
 import awswrangler as wr
+import datetime
 import json
 import logging
 import os
@@ -33,11 +34,11 @@ def lambda_handler(event, context):
                 sep=';'
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
-            result = wr.s3.to_json(
+            key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
+            wr.s3.to_json(
                 df=df,
-                path=f's3://{bucket}'
+                path=f's3://{bucket}/{key}'
             )
-            print(result)
             sqs.delete_message(
                 queue_url=queue_url,
                 receipt_handle=receipt_handle
