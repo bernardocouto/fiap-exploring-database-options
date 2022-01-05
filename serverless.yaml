@@ -116,8 +116,8 @@ resources:
     fiapGlueTable:
       Properties:
         CatalogId: !Ref AWS::AccountId
-        DatabaseName: parquet
         TableInput:
+          DatabaseName: fiap
           Parameters: {
             "classification": "parquet"
           }
@@ -162,12 +162,33 @@ resources:
               - Type: decimal
                 Name: total_amount
             Location: s3://fiap-exploring-database-options-ingested-json/parquet/
+            Name: parquet
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Database
     firehoseIngestJson:
       Properties:
         DeliveryStreamName: firehose-ingest-json
         DeliveryStreamType: DirectPut
+        ExtendedS3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt:
+              - ingestedJson
+              - Arn
+          BufferingHints:
+            IntervalInSeconds: 300
+            SizeInMBs: 100
+          DataFormatConversionConfiguration:
+            OutputFormatConfiguration:
+              Serializer:
+                ParquetSerDe:
+                  Compression: SNAPPY
+            SchemaConfiguration:
+              DatabaseName: fiap
+              TableName: parquet
+          RoleARN:
+            Fn::GetAtt:
+              - firehoseIngestJsonRole
+              - Arn
         S3DestinationConfiguration:
           BucketARN:
             Fn::GetAtt:
