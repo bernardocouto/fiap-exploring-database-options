@@ -13,8 +13,6 @@ functions:
               - smallFilesCsv
               - Arn
     handler: convert-csv-json/lambda_function.lambda_handler
-    layers:
-
     memorySize: 128
     name: convert-csv-json
     package:
@@ -104,6 +102,22 @@ provider:
 
 resources:
   Resources:
+    fiapGlueDatabase:
+      Properties:
+        CatalogId: !Ref AWS::AccountId
+        DatabaseInput:
+          LocationUri: s3://firehose-ingest-json/
+          Name: fiap
+      Type: AWS::Glue::Database
+#    fiapGlueTable:
+#      Properties:
+#        CatalogId: !Ref AWS::AccountId
+#        DatabaseName: !Ref fiapGlueDatabase
+#        Parameters: {
+#          "classification": "parquet"
+#        }
+#        TableType: EXTERNAL_TABLE
+#      Type: AWS::Glue::Table
     firehoseIngestJson:
       Properties:
         DeliveryStreamName: firehose-ingest-json
@@ -127,6 +141,7 @@ resources:
           Statement:
             - Effect: Allow
               Action:
+                - glue:*
                 - s3:*
               Resource:
                 - '*'
