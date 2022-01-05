@@ -1,3 +1,4 @@
+import json
 import boto3
 import logging
 
@@ -12,7 +13,7 @@ class Firehose:
         try:
             self.client.put_record(
                 DeliveryStreamName=delivery_stream_name,
-                Record={'Data': bytes(record)}
+                Record={'Data': json.dumps(record)}
             )
         except self.client.exceptions.InvalidArgumentException as exception:
             logger.error(f'Invalid argument: {exception}')
