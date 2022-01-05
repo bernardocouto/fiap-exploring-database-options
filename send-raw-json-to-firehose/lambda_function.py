@@ -20,8 +20,8 @@ def lambda_handler(event, context):
                 lines=True,
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
-            print(df)
             for index, row in df.iterrows():
-                print(f'Index: {index} - Row: {row}')
+                data = json.dumps(row)
+                print(data)
 
     logger.info('End of AWS Lambda run')
