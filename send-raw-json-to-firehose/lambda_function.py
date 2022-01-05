@@ -17,6 +17,7 @@ def lambda_handler(event, context):
             body = json.loads(record['body'])
             logger.info(f'Reading the JSON on AWS S3: s3://{body["bucket"]}/{body["key"]}')
             df = wr.s3.read_json(
+                index=False,
                 lines=True,
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
