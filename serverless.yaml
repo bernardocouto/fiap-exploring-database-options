@@ -116,8 +116,8 @@ resources:
     fiapGlueTable:
       Properties:
         CatalogId: !Ref AWS::AccountId
+        DatabaseName: fiap
         TableInput:
-          DatabaseName: fiap
           Parameters: {
             "classification": "parquet"
           }
@@ -162,7 +162,7 @@ resources:
               - Type: decimal
                 Name: total_amount
             Location: s3://fiap-exploring-database-options-ingested-json/parquet/
-            Name: parquet
+          Name: parquet
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Database
     firehoseIngestJson:
