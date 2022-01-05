@@ -185,18 +185,7 @@ resources:
             SchemaConfiguration:
               DatabaseName: fiap
               TableName: parquet
-          RoleARN:
-            Fn::GetAtt:
-              - firehoseIngestJsonRole
-              - Arn
-        S3DestinationConfiguration:
-          BucketARN:
-            Fn::GetAtt:
-              - ingestedJson
-              - Arn
-          BufferingHints:
-            IntervalInSeconds: 300
-            SizeInMBs: 100
+          Prefix: parquet
           RoleARN:
             Fn::GetAtt:
               - firehoseIngestJsonRole
