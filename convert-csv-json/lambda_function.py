@@ -41,7 +41,7 @@ def lambda_handler(event, context):
             df = wr.s3.read_csv(
                 names=columns_names,
                 path=[f's3://{body["bucket"]}/{body["key"]}'],
-                sep=';'
+                sep=','
             )
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
             key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
