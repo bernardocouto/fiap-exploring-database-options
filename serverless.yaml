@@ -164,7 +164,7 @@ resources:
             Location: s3://fiap-exploring-database-options-ingested-json/parquet/
           Name: parquet
           TableType: EXTERNAL_TABLE
-      Type: AWS::Glue::Database
+      Type: AWS::Glue::Table
     firehoseIngestJson:
       Properties:
         DeliveryStreamName: firehose-ingest-json
