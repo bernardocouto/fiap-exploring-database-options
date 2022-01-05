@@ -143,7 +143,9 @@ resources:
               Action: sts:AssumeRole
               Effect: Allow
               Principal:
-                Service: firehose.amazonaws.com
+                Service:
+                  - firehose.amazonaws.com
+                  - glue.amazonaws.com
           Version: '2012-10-17'
       Type: AWS::IAM::Role
     ingestedJson:
