@@ -102,6 +102,10 @@ provider:
 
 resources:
   Resources:
+    curatedAvro:
+      Properties:
+        BucketName: fiap-exploring-database-options-curated-avro
+      Type: AWS::S3::Bucket
     fiapGlueDatabase:
       Properties:
         CatalogId: !Ref AWS::AccountId
@@ -109,15 +113,57 @@ resources:
           LocationUri: s3://firehose-ingest-json/
           Name: fiap
       Type: AWS::Glue::Database
-#    fiapGlueTable:
-#      Properties:
-#        CatalogId: !Ref AWS::AccountId
-#        DatabaseName: !Ref fiapGlueDatabase
-#        Parameters: {
-#          "classification": "parquet"
-#        }
-#        TableType: EXTERNAL_TABLE
-#      Type: AWS::Glue::Table
+    fiapGlueTable:
+      Properties:
+        CatalogId: !Ref AWS::AccountId
+        DatabaseName: parquet
+        TableInput:
+          Parameters: {
+            "classification": "parquet"
+          }
+          StorageDescriptor:
+            Columns:
+              - Type: bigint
+                Name: VendorID
+              - Type: string
+                Name: tpep_pickup_datetime
+              - Type: string
+                Name: tpep_dropoff_datetime
+              - Type: bigint
+                Name: passenger_count
+              - Type: decimal
+                Name: trip_distance
+              - Type: decimal
+                Name: pickup_longitude
+              - Type: decimal
+                Name: pickup_latitude
+              - Type: bigint
+                Name: RateCodeID
+              - Type: string
+                Name: store_and_fwd_flag
+              - Type: string
+                Name: dropoff_longitude
+              - Type: string
+                Name: dropoff_latitude
+              - Type: bigint
+                Name: payment_type
+              - Type: bigint
+                Name: fare_amount
+              - Type: bigint
+                Name: extra
+              - Type: decimal
+                Name: mta_tax
+              - Type: decimal
+                Name: tip_amount
+              - Type: decimal
+                Name: tolls_amount
+              - Type: decimal
+                Name: improvement_surcharge
+              - Type: decimal
+                Name: total_amount
+            Location: s3://fiap-exploring-database-options-ingested-json/parquet/
+          TableType: EXTERNAL_TABLE
+      Type: AWS::Glue::Database
     firehoseIngestJson:
       Properties:
         DeliveryStreamName: firehose-ingest-json
