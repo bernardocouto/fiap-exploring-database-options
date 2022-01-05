@@ -56,7 +56,7 @@ functions:
               - rawJsonToFirehose
               - Arn
     handler: send-raw-json-to-firehose/lambda_function.lambda_handler
-    memorySize: 128
+    memorySize: 256
     name: send-raw-json-to-firehose
     package:
       include:
