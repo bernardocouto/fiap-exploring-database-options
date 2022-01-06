@@ -247,25 +247,6 @@ resources:
       Properties:
         DeliveryStreamName: firehose-ingest-parquet
         DeliveryStreamType: DirectPut
-        ExtendedS3DestinationConfiguration:
-          BucketARN:
-            Fn::GetAtt:
-              - ingested
-              - Arn
-          BufferingHints:
-            IntervalInSeconds: 300
-            SizeInMBs: 100
-            OutputFormatConfiguration:
-              Serializer:
-                ParquetSerDe:
-                  Compression: SNAPPY
-            SchemaConfiguration:
-              DatabaseName: fiap
-              RoleARN:
-                Fn::GetAtt:
-                  - firehoseIngestRole
-                  - Arn
-              TableName: parquet
           Prefix: parquet/
           RoleARN:
             Fn::GetAtt:
