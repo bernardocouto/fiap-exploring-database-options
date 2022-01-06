@@ -114,9 +114,9 @@ resources:
           Name: fiap
       Type: AWS::Glue::Database
     fiapGlueTableJson:
+      DependsOn: !Ref fiapGlueDatabase
       Properties:
         CatalogId: !Ref AWS::AccountId
-        DependsOn: !Ref fiapGlueDatabase
         DatabaseName: fiap
         TableInput:
           Parameters: {
@@ -167,9 +167,9 @@ resources:
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Table
     fiapGlueTableParquet:
+      DependsOn: !Ref fiapGlueDatabase
       Properties:
         CatalogId: !Ref AWS::AccountId
-        DependsOn: !Ref fiapGlueDatabase
         DatabaseName: fiap
         TableInput:
           Parameters: {
