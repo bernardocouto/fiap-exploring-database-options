@@ -26,16 +26,15 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
             df = df.to_json(lines=True, orient='records')
-            for item in df:
-                logger.info(f'Send record to AWS Kinesis Firehose JSON: {item}')
-                firehose.put_record(
-                    delivery_stream_name=delivery_stream_name_json,
-                    record=item
-                )
-                logger.info(f'Send record to AWS Kinesis Firehose Parquet: {item}')
-                firehose.put_record(
-                    delivery_stream_name=delivery_stream_name_parquet,
-                    record=item
-                )
+            logger.info(f'Send record to AWS Kinesis Firehose JSON: {df}')
+            firehose.put_record(
+                delivery_stream_name=delivery_stream_name_json,
+                record=df
+            )
+            logger.info(f'Send record to AWS Kinesis Firehose Parquet: {df}')
+            firehose.put_record(
+                delivery_stream_name=delivery_stream_name_parquet,
+                record=df
+            )
 
     logger.info('End of AWS Lambda run')
