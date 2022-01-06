@@ -6,6 +6,7 @@ import os
 
 logger = logging.getLogger(__name__)
 
+
 def lambda_handler(event, context):
 
     logger.info('Start of running AWS Lambda')

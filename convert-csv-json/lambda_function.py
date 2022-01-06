@@ -6,6 +6,7 @@ import os
 
 logger = logging.getLogger(__name__)
 
+
 def lambda_handler(event, context):
 
     logger.info('Start of running AWS Lambda')
@@ -43,6 +44,7 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}'],
                 sep=','
             )
+            df = df.iloc[1:, :]
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
             key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
             wr.s3.to_json(
