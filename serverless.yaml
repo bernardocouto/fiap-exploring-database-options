@@ -250,6 +250,8 @@ resources:
             IntervalInSeconds: 300
             SizeInMBs: 100
           DataFormatConversionConfiguration:
+            InputFormatConfiguration:
+              Deserializer: HiveJsonSerDe
             OutputFormatConfiguration:
               Serializer:
                 ParquetSerDe:
