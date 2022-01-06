@@ -255,11 +255,6 @@ resources:
           BufferingHints:
             IntervalInSeconds: 300
             SizeInMBs: 100
-          DataFormatConversionConfiguration:
-            InputFormatConfiguration:
-              Deserializer:
-                OpenXJsonSerDe:
-                  CaseInsensitive: false
             OutputFormatConfiguration:
               Serializer:
                 ParquetSerDe:
