@@ -125,7 +125,7 @@ resources:
           StorageDescriptor:
             Columns:
               - Type: bigint
-                Name: VendorID
+                Name: vendor_id
               - Type: string
                 Name: tpep_pickup_datetime
               - Type: string
@@ -139,7 +139,7 @@ resources:
               - Type: decimal
                 Name: pickup_latitude
               - Type: bigint
-                Name: RateCodeID
+                Name: rate_code_id
               - Type: string
                 Name: store_and_fwd_flag
               - Type: string
@@ -178,7 +178,7 @@ resources:
           StorageDescriptor:
             Columns:
               - Type: bigint
-                Name: VendorID
+                Name: vendor_id
               - Type: string
                 Name: tpep_pickup_datetime
               - Type: string
@@ -192,7 +192,7 @@ resources:
               - Type: decimal
                 Name: pickup_latitude
               - Type: bigint
-                Name: RateCodeID
+                Name: rate_code_id
               - Type: string
                 Name: store_and_fwd_flag
               - Type: string

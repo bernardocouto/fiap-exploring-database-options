@@ -36,6 +36,28 @@ def lambda_handler(event, context):
         'total_amount'
     ]
 
+    columns_new_names = [
+        'vendor_id',
+        'tpep_pickup_datetime',
+        'tpep_dropoff_datetime',
+        'passenger_count',
+        'trip_distance',
+        'pickup_longitude',
+        'pickup_latitude',
+        'rate_code_id',
+        'store_and_fwd_flag',
+        'dropoff_longitude',
+        'dropoff_latitude',
+        'payment_type',
+        'fare_amount',
+        'extra',
+        'mta_tax',
+        'tip_amount',
+        'tolls_amount',
+        'improvement_surcharge',
+        'total_amount'
+    ]
+
     columns_dtype = {
         'VendorID': int,
         'tpep_pickup_datetime': str,
@@ -69,7 +91,7 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}'],
                 sep=','
             )
-            # df = df.iloc[1:, :]
+            df.columns = columns_new_names
             logger.info(f'Converting from CSV to JSON and persisting to AWS S3: s3://{bucket}')
             key = f'{datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")}.json'
             wr.s3.to_json(
