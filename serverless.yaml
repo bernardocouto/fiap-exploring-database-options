@@ -116,6 +116,7 @@ resources:
     fiapGlueTableJson:
       Properties:
         CatalogId: !Ref AWS::AccountId
+        DependsOn: !Ref fiapGlueDatabase
         DatabaseName: fiap
         TableInput:
           Parameters: {
@@ -168,6 +169,7 @@ resources:
     fiapGlueTableParquet:
       Properties:
         CatalogId: !Ref AWS::AccountId
+        DependsOn: !Ref fiapGlueDatabase
         DatabaseName: fiap
         TableInput:
           Parameters: {
