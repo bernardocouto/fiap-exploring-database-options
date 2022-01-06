@@ -24,8 +24,8 @@ def lambda_handler(event, context):
                 orient='records',
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
-            for index, row in df.iterrows():
-                print(row[index])
-                firehose.put_record(delivery_stream_name=delivery_stream_name, record=row[index])
+            for row in df.iterrows():
+                print(row)
+                # firehose.put_record(delivery_stream_name=delivery_stream_name, record=row[index])
 
     logger.info('End of AWS Lambda run')
