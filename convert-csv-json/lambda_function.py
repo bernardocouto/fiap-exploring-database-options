@@ -35,11 +35,34 @@ def lambda_handler(event, context):
         'total_amount'
     ]
 
+    columns_dtype = {
+        'VendorID': int,
+        'tpep_pickup_datetime': str,
+        'tpep_dropoff_datetime': str,
+        'passenger_count': int,
+        'trip_distance': float,
+        'pickup_longitude': float,
+        'pickup_latitude': float,
+        'RateCodeID': int,
+        'store_and_fwd_flag': str,
+        'dropoff_longitude': float,
+        'dropoff_latitude': float,
+        'payment_type': int,
+        'fare_amount': float,
+        'extra': float,
+        'mta_tax': float,
+        'tip_amount': float,
+        'tolls_amount': float,
+        'improvement_surcharge': float,
+        'total_amount': float
+    }
+
     if 'Records' in event:
         for record in event['Records']:
             body = json.loads(record['body'])
             logger.info(f'Reading the CSV on AWS S3: s3://{body["bucket"]}/{body["key"]}')
             df = wr.s3.read_csv(
+                dtype=columns_dtype,
                 names=columns_names,
                 path=[f's3://{body["bucket"]}/{body["key"]}'],
                 sep=','
