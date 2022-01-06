@@ -247,12 +247,20 @@ resources:
       Properties:
         DeliveryStreamName: firehose-ingest-parquet
         DeliveryStreamType: DirectPut
+        ExtendedS3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt:
+              - ingested
+              - Arn
+          BufferingHints:
+            IntervalInSeconds: 300
+            SizeInMBs: 100
           Prefix: parquet/
           RoleARN:
             Fn::GetAtt:
               - firehoseIngestRole
               - Arn
-      Type: AWS::KinesisFirehose::DeliveryStream
+        Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestPolicy:
       DependsOn: firehoseIngestRole
       Properties:
