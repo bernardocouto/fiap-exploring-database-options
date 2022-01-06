@@ -25,8 +25,8 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
             for row in df.iterrows():
-                print(row)
-                print(type(row))
+                print(row[1])
+                print(type(row[1]))
                 for item in row:
                     print(item)
                     print(type(item))
