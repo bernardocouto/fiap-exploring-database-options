@@ -13,6 +13,8 @@
 
 ## Arquitetura
 
+![Arquitetura](./documentation/image/architecture.png)
+
 ## Deploy
 
 Toda a infra-estrutura foi construída utilizando o conceito de IaC através do Serverless Framework.

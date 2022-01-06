@@ -28,7 +28,10 @@ def lambda_handler(event, context):
             for row in df.iterrows():
                 print(row)
                 print(type(row))
-                firehose.put_record(delivery_stream_name=delivery_stream_name_json, record=row)
-                firehose.put_record(delivery_stream_name=delivery_stream_name_parquet, record=row)
+                for item in row:
+                    print(item)
+                    print(type(item))
+                    firehose.put_record(delivery_stream_name=delivery_stream_name_json, record=item)
+                    firehose.put_record(delivery_stream_name=delivery_stream_name_parquet, record=item)
 
     logger.info('End of AWS Lambda run')
