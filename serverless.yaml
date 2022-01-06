@@ -224,7 +224,7 @@ resources:
         ExtendedS3DestinationConfiguration:
           BucketARN:
             Fn::GetAtt:
-              - ingestedJson
+              - ingested
               - Arn
           BufferingHints:
             IntervalInSeconds: 300
@@ -242,7 +242,7 @@ resources:
         ExtendedS3DestinationConfiguration:
           BucketARN:
             Fn::GetAtt:
-              - ingestedJson
+              - ingested
               - Arn
           BufferingHints:
             IntervalInSeconds: 300
