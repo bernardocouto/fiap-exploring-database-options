@@ -14,7 +14,7 @@ def lambda_handler(event, context):
 
     firehose = Firehose()
     delivery_stream_name_json = os.environ.get('AWS_FIREHOSE_INGEST_JSON', 'firehose-ingest-json')
-    delivery_stream_name_parquet = os.environ.get('AWS_FIREHOSE_INGEST_JSON', 'firehose-ingest-parquet')
+    delivery_stream_name_parquet = os.environ.get('AWS_FIREHOSE_INGEST_PARQUET', 'firehose-ingest-parquet')
 
     if 'Records' in event:
         for record in event['Records']:
