@@ -251,7 +251,9 @@ resources:
             SizeInMBs: 100
           DataFormatConversionConfiguration:
             InputFormatConfiguration:
-              Deserializer: HiveJsonSerDe
+              Deserializer:
+                OpenXJsonSerDe:
+                  CaseInsensitive: false
             OutputFormatConfiguration:
               Serializer:
                 ParquetSerDe:
