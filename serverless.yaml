@@ -110,7 +110,7 @@ resources:
       Properties:
         CatalogId: !Ref AWS::AccountId
         DatabaseInput:
-          LocationUri: s3://firehose-ingest/
+          LocationUri: s3://fiap-exploring-database-options-ingested/
           Name: fiap
       Type: AWS::Glue::Database
     fiapGlueTableJson:
