@@ -232,7 +232,7 @@ resources:
           Prefix: json/
           RoleARN:
             Fn::GetAtt:
-              - firehoseIngestJsonRole
+              - firehoseIngestRole
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestParquet:
@@ -258,7 +258,7 @@ resources:
           Prefix: parquet/
           RoleARN:
             Fn::GetAtt:
-              - firehoseIngestJsonRole
+              - firehoseIngestRole
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestPolicy:
