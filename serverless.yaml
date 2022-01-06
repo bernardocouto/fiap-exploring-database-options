@@ -132,35 +132,35 @@ resources:
                 Name: tpep_dropoff_datetime
               - Type: bigint
                 Name: passenger_count
-              - Type: decimal
+              - Type: bigint
                 Name: trip_distance
-              - Type: decimal
+              - Type: double
                 Name: pickup_longitude
-              - Type: decimal
+              - Type: double
                 Name: pickup_latitude
               - Type: bigint
                 Name: rate_code_id
               - Type: string
                 Name: store_and_fwd_flag
-              - Type: string
+              - Type: double
                 Name: dropoff_longitude
-              - Type: string
+              - Type: double
                 Name: dropoff_latitude
               - Type: bigint
                 Name: payment_type
-              - Type: bigint
+              - Type: double
                 Name: fare_amount
-              - Type: bigint
+              - Type: double
                 Name: extra
-              - Type: decimal
+              - Type: double
                 Name: mta_tax
-              - Type: decimal
+              - Type: double
                 Name: tip_amount
-              - Type: decimal
+              - Type: double
                 Name: tolls_amount
-              - Type: decimal
+              - Type: double
                 Name: improvement_surcharge
-              - Type: decimal
+              - Type: double
                 Name: total_amount
             Location: s3://fiap-exploring-database-options-ingested/json/
           Name: json
@@ -185,35 +185,35 @@ resources:
                 Name: tpep_dropoff_datetime
               - Type: bigint
                 Name: passenger_count
-              - Type: decimal
+              - Type: bigint
                 Name: trip_distance
-              - Type: decimal
+              - Type: double
                 Name: pickup_longitude
-              - Type: decimal
+              - Type: double
                 Name: pickup_latitude
               - Type: bigint
                 Name: rate_code_id
               - Type: string
                 Name: store_and_fwd_flag
-              - Type: string
+              - Type: double
                 Name: dropoff_longitude
-              - Type: string
+              - Type: double
                 Name: dropoff_latitude
               - Type: bigint
                 Name: payment_type
-              - Type: bigint
+              - Type: double
                 Name: fare_amount
-              - Type: bigint
+              - Type: double
                 Name: extra
-              - Type: decimal
+              - Type: double
                 Name: mta_tax
-              - Type: decimal
+              - Type: double
                 Name: tip_amount
-              - Type: decimal
+              - Type: double
                 Name: tolls_amount
-              - Type: decimal
+              - Type: double
                 Name: improvement_surcharge
-              - Type: decimal
+              - Type: double
                 Name: total_amount
             Location: s3://fiap-exploring-database-options-ingested/parquet/
           Name: parquet
