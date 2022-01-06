@@ -240,39 +240,39 @@ resources:
               - firehoseIngestRole
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
-    firehoseIngestParquet:
-      DependsOn:
-        - firehoseIngestRole
-        - ingested
-      Properties:
-        DeliveryStreamName: firehose-ingest-parquet
-        DeliveryStreamType: DirectPut
-        ExtendedS3DestinationConfiguration:
-          BucketARN:
-            Fn::GetAtt:
-              - ingested
-              - Arn
-          BufferingHints:
-            IntervalInSeconds: 300
-            SizeInMBs: 100
-          DataFormatConversionConfiguration:
-            InputFormatConfiguration:
-              Deserializer:
-                OpenXJsonSerDe:
-                  CaseInsensitive: false
-            OutputFormatConfiguration:
-              Serializer:
-                ParquetSerDe:
-                  Compression: SNAPPY
-            SchemaConfiguration:
-              DatabaseName: fiap
-              TableName: parquet
-          Prefix: parquet/
-          RoleARN:
-            Fn::GetAtt:
-              - firehoseIngestRole
-              - Arn
-      Type: AWS::KinesisFirehose::DeliveryStream
+#    firehoseIngestParquet:
+#      DependsOn:
+#        - firehoseIngestRole
+#        - ingested
+#      Properties:
+#        DeliveryStreamName: firehose-ingest-parquet
+#        DeliveryStreamType: DirectPut
+#        ExtendedS3DestinationConfiguration:
+#          BucketARN:
+#            Fn::GetAtt:
+#              - ingested
+#              - Arn
+#          BufferingHints:
+#            IntervalInSeconds: 300
+#            SizeInMBs: 100
+#          DataFormatConversionConfiguration:
+#            InputFormatConfiguration:
+#              Deserializer:
+#                OpenXJsonSerDe:
+#                  CaseInsensitive: false
+#            OutputFormatConfiguration:
+#              Serializer:
+#                ParquetSerDe:
+#                  Compression: SNAPPY
+#            SchemaConfiguration:
+#              DatabaseName: fiap
+#              TableName: parquet
+#          Prefix: parquet/
+#          RoleARN:
+#            Fn::GetAtt:
+#              - firehoseIngestRole
+#              - Arn
+#      Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestPolicy:
       DependsOn: firehoseIngestRole
       Properties:
