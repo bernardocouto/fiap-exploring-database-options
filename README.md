@@ -1,5 +1,11 @@
 # FIAP Exploring Database Options
 
+## Grupo
+
+* Bernardo Couto
+* Raphael Freixo
+* Ronaldo Nolasco
+
 ## Dataset
 
 * **URL**: https://www.kaggle.com/elemento/nyc-yellow-taxi-trip-data

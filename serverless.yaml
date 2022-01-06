@@ -161,7 +161,7 @@ resources:
                 Name: improvement_surcharge
               - Type: decimal
                 Name: total_amount
-            Location: s3://fiap-exploring-database-options-ingested-json/json/
+            Location: s3://fiap-exploring-database-options-ingested/json/
           Name: json
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Table
