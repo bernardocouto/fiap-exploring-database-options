@@ -260,7 +260,7 @@ resources:
             Fn::GetAtt:
               - firehoseIngestRole
               - Arn
-        Type: AWS::KinesisFirehose::DeliveryStream
+      Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestPolicy:
       DependsOn: firehoseIngestRole
       Properties:
