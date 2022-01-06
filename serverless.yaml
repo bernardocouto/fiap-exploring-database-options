@@ -222,7 +222,7 @@ resources:
     firehoseIngestJson:
       DependsOn:
         - firehoseIngestRole
-        - ingest
+        - ingested
       Properties:
         DeliveryStreamName: firehose-ingest-json
         DeliveryStreamType: DirectPut
@@ -243,7 +243,7 @@ resources:
     firehoseIngestParquet:
       DependsOn:
         - firehoseIngestRole
-        - ingest
+        - ingested
       Properties:
         DeliveryStreamName: firehose-ingest-parquet
         DeliveryStreamType: DirectPut
