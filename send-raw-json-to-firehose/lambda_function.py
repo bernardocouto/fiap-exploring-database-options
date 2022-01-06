@@ -25,7 +25,7 @@ def lambda_handler(event, context):
                 orient='records',
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
-            df = df.to_json(orient='records')
+            df = df.to_json(lines=True, orient='records')
             for item in df:
                 logger.info('Send record to AWS Kinesis Firehose JSON')
                 firehose.put_record(
