@@ -266,6 +266,10 @@ resources:
                   Compression: SNAPPY
             SchemaConfiguration:
               DatabaseName: fiap
+              RoleARN:
+                Fn::GetAtt:
+                  - firehoseIngestRole
+                  - Arn
               TableName: parquet
           Prefix: parquet/
           RoleARN:
