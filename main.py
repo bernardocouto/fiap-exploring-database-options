@@ -2,13 +2,8 @@ import pandas as pd
 
 
 def main():
-    df = pd.read_json('./sample/test.json')
-    data = df.to_json(lines=True, orient='records')
-    data = data.split('\n')
-    print(data)
-    for item in data:
-        print(item)
-        print(type(item))
+    df = pd.read_parquet('./sample/test.parquet')
+    print(df)
 
 
 if __name__ == '__main__':

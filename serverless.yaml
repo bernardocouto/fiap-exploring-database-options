@@ -268,6 +268,7 @@ resources:
           Statement:
             - Effect: Allow
               Action:
+                - cloudwatch:*
                 - glue:*
                 - s3:*
               Resource:
@@ -286,6 +287,7 @@ resources:
               Effect: Allow
               Principal:
                 Service:
+                  - cloudwatch.amazonaws.com
                   - firehose.amazonaws.com
                   - glue.amazonaws.com
           Version: '2012-10-17'
