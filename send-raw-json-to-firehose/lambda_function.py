@@ -26,7 +26,8 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
             for row in df.iterrows():
-                print(json.dumps(row))
+                print(row)
+                print(type(row))
                 firehose.put_record(delivery_stream_name=delivery_stream_name_json, record=row)
                 firehose.put_record(delivery_stream_name=delivery_stream_name_parquet, record=row)
 
