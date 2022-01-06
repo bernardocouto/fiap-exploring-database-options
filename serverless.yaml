@@ -110,16 +110,16 @@ resources:
       Properties:
         CatalogId: !Ref AWS::AccountId
         DatabaseInput:
-          LocationUri: s3://firehose-ingest-json/
+          LocationUri: s3://firehose-ingest/
           Name: fiap
       Type: AWS::Glue::Database
-    fiapGlueTable:
+    fiapGlueTableJson:
       Properties:
         CatalogId: !Ref AWS::AccountId
         DatabaseName: fiap
         TableInput:
           Parameters: {
-            "classification": "parquet"
+            'classification': 'json'
           }
           StorageDescriptor:
             Columns:
@@ -161,11 +161,81 @@ resources:
                 Name: improvement_surcharge
               - Type: decimal
                 Name: total_amount
-            Location: s3://fiap-exploring-database-options-ingested-json/parquet/
+            Location: s3://fiap-exploring-database-options-ingested-json/json/
+          Name: json
+          TableType: EXTERNAL_TABLE
+      Type: AWS::Glue::Table
+    fiapGlueTableParquet:
+      Properties:
+        CatalogId: !Ref AWS::AccountId
+        DatabaseName: fiap
+        TableInput:
+          Parameters: {
+            'classification': 'parquet'
+          }
+          StorageDescriptor:
+            Columns:
+              - Type: bigint
+                Name: VendorID
+              - Type: string
+                Name: tpep_pickup_datetime
+              - Type: string
+                Name: tpep_dropoff_datetime
+              - Type: bigint
+                Name: passenger_count
+              - Type: decimal
+                Name: trip_distance
+              - Type: decimal
+                Name: pickup_longitude
+              - Type: decimal
+                Name: pickup_latitude
+              - Type: bigint
+                Name: RateCodeID
+              - Type: string
+                Name: store_and_fwd_flag
+              - Type: string
+                Name: dropoff_longitude
+              - Type: string
+                Name: dropoff_latitude
+              - Type: bigint
+                Name: payment_type
+              - Type: bigint
+                Name: fare_amount
+              - Type: bigint
+                Name: extra
+              - Type: decimal
+                Name: mta_tax
+              - Type: decimal
+                Name: tip_amount
+              - Type: decimal
+                Name: tolls_amount
+              - Type: decimal
+                Name: improvement_surcharge
+              - Type: decimal
+                Name: total_amount
+            Location: s3://fiap-exploring-database-options-ingested/parquet/
           Name: parquet
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Table
     firehoseIngestJson:
+      Properties:
+        DeliveryStreamName: firehose-ingest-json
+        DeliveryStreamType: DirectPut
+        ExtendedS3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt:
+              - ingestedJson
+              - Arn
+          BufferingHints:
+            IntervalInSeconds: 300
+            SizeInMBs: 100
+          Prefix: json/
+          RoleARN:
+            Fn::GetAtt:
+              - firehoseIngestJsonRole
+              - Arn
+      Type: AWS::KinesisFirehose::DeliveryStream
+    firehoseIngestParquet:
       Properties:
         DeliveryStreamName: firehose-ingest-json
         DeliveryStreamType: DirectPut
@@ -185,13 +255,13 @@ resources:
             SchemaConfiguration:
               DatabaseName: fiap
               TableName: parquet
-          Prefix: parquet
+          Prefix: parquet/
           RoleARN:
             Fn::GetAtt:
               - firehoseIngestJsonRole
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
-    firehoseIngestJsonPolicy:
+    firehoseIngestPolicy:
       Properties:
         PolicyDocument:
           Statement:
@@ -202,11 +272,11 @@ resources:
               Resource:
                 - '*'
           Version: '2012-10-17'
-        PolicyName: firehose-ingest-json
+        PolicyName: firehose-ingest
         Roles:
-            - !Ref firehoseIngestJsonRole
+            - !Ref firehoseIngestRole
       Type: AWS::IAM::Policy
-    firehoseIngestJsonRole:
+    firehoseIngestRole:
       Properties:
         AssumeRolePolicyDocument:
           Statement:
@@ -219,9 +289,9 @@ resources:
                   - glue.amazonaws.com
           Version: '2012-10-17'
       Type: AWS::IAM::Role
-    ingestedJson:
+    ingested:
       Properties:
-        BucketName: fiap-exploring-database-options-ingested-json
+        BucketName: fiap-exploring-database-options-ingested
       Type: AWS::S3::Bucket
     rawJson:
       Properties:
