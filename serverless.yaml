@@ -220,6 +220,9 @@ resources:
           TableType: EXTERNAL_TABLE
       Type: AWS::Glue::Table
     firehoseIngestJson:
+      DependsOn:
+        - firehoseIngestRole
+        - ingest
       Properties:
         DeliveryStreamName: firehose-ingest-json
         DeliveryStreamType: DirectPut
@@ -238,6 +241,9 @@ resources:
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestParquet:
+      DependsOn:
+        - firehoseIngestRole
+        - ingest
       Properties:
         DeliveryStreamName: firehose-ingest-parquet
         DeliveryStreamType: DirectPut
@@ -268,6 +274,7 @@ resources:
               - Arn
       Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestPolicy:
+      DependsOn: firehoseIngestRole
       Properties:
         PolicyDocument:
           Statement:
@@ -304,6 +311,7 @@ resources:
         BucketName: fiap-exploring-database-options-raw-json
       Type: AWS::S3::Bucket
     rawJsonToFirehose:
+      DependsOn: rawJsonToFirehoseDlq
       Properties:
         QueueName: raw-json-to-firehose
         RedrivePolicy:
@@ -322,6 +330,7 @@ resources:
         BucketName: fiap-exploring-database-options-small-files
       Type: AWS::S3::Bucket
     smallFilesCsv:
+      DependsOn: smallFilesCsvDlq
       Properties:
         QueueName: small-files-csv
         RedrivePolicy:
