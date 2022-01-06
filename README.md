@@ -2,8 +2,8 @@
 
 ## Dataset
 
-* **URL**:
-* **Tamanho**:
+* **URL**: https://www.kaggle.com/elemento/nyc-yellow-taxi-trip-data
+* **Tamanho**: 7 GB
 
 ## Arquitetura
 

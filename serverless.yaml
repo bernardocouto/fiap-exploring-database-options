@@ -237,7 +237,7 @@ resources:
       Type: AWS::KinesisFirehose::DeliveryStream
     firehoseIngestParquet:
       Properties:
-        DeliveryStreamName: firehose-ingest-json
+        DeliveryStreamName: firehose-ingest-parquet
         DeliveryStreamType: DirectPut
         ExtendedS3DestinationConfiguration:
           BucketARN:

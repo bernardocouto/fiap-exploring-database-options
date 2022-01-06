@@ -13,7 +13,8 @@ def lambda_handler(event, context):
     logger.info('Start of running AWS Lambda')
 
     firehose = Firehose()
-    delivery_stream_name = os.environ.get('AWS_FIREHOSE_INGEST_JSON', 'firehose-ingest-json')
+    delivery_stream_name_json = os.environ.get('AWS_FIREHOSE_INGEST_JSON', 'firehose-ingest-json')
+    delivery_stream_name_parquet = os.environ.get('AWS_FIREHOSE_INGEST_JSON', 'firehose-ingest-parquet')
 
     if 'Records' in event:
         for record in event['Records']:
@@ -26,6 +27,7 @@ def lambda_handler(event, context):
             )
             for row in df.iterrows():
                 print(row)
+                # firehose.put_record(delivery_stream_name=delivery_stream_name, record=row[index])
                 # firehose.put_record(delivery_stream_name=delivery_stream_name, record=row[index])
 
     logger.info('End of AWS Lambda run')
