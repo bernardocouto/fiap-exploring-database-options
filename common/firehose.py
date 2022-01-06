@@ -14,7 +14,7 @@ class Firehose:
         try:
             self.client.put_record(
                 DeliveryStreamName=delivery_stream_name,
-                Record={'Data': json.dumps(record)}
+                Record={'Data': record}
             )
         except self.client.exceptions.InvalidArgumentException as exception:
             logger.error(f'Invalid argument: {exception}')
