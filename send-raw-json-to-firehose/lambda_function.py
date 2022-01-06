@@ -31,12 +31,12 @@ def lambda_handler(event, context):
                 logger.info(f'Send record to AWS Kinesis Firehose JSON: {df}')
                 firehose.put_record(
                     delivery_stream_name=delivery_stream_name_json,
-                    record=data
+                    record=item
                 )
                 logger.info(f'Send record to AWS Kinesis Firehose Parquet: {df}')
                 firehose.put_record(
                     delivery_stream_name=delivery_stream_name_parquet,
-                    record=data
+                    record=item
                 )
 
     logger.info('End of AWS Lambda run')
