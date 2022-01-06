@@ -4,6 +4,7 @@ import awswrangler as wr
 import json
 import logging
 import os
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -25,12 +26,13 @@ def lambda_handler(event, context):
                 path=[f's3://{body["bucket"]}/{body["key"]}']
             )
             for row in df.iterrows():
-                print(row[1].to_json())
-                print(type(row[1].to_json()))
-                for item in row:
-                    print(item)
-                    print(type(item))
-                    firehose.put_record(delivery_stream_name=delivery_stream_name_json, record=item)
-                    firehose.put_record(delivery_stream_name=delivery_stream_name_parquet, record=item)
+                firehose.put_record(
+                    delivery_stream_name=delivery_stream_name_json,
+                    record=json.dumps(row[1].to_json())
+                )
+                firehose.put_record(
+                    delivery_stream_name=delivery_stream_name_parquet,
+                    record=json.dumps(row[1].to_json())
+                )
 
     logger.info('End of AWS Lambda run')
